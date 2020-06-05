@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Reserva Ecologica Antisana</title>
+
+    <link rel="icon" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+
+</head>
+
+<body class="blog">
+    <div class="preloader-main">
+        <div class="preloader-wapper">
+            <svg class="preloader" xmlns="http://www.w3.org/2000/svg" version="1.1" width="600" height="200">
+                <defs>
+                    <filter id="goo" x="-40%" y="-40%" height="200%" width="400%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -8" result="goo" />
+                    </filter>
+                </defs>
+                <g filter="url(#goo)">
+                    <circle class="dot" cx="50" cy="50" r="25" fill="#8731E8" />
+                    <circle class="dot" cx="50" cy="50" r="25" fill="#8731E8" />
+                </g>
+            </svg>
+            <div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="scrollUp" title="Scroll To Top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    
+    <div class="main">
+        <header class="navbar navbar-sticky navbar-expand-lg navbar-dark">
+            <div class="container position-relative">
+                <a class="navbar-brand" href="index.html">
+                    <img class="navbar-brand-regular" src="assets/img/logo/logo-white.png" alt="brand-logo">
+                    <img class="navbar-brand-sticky" src="assets/img/logo/logo.png" alt="sticky brand-logo">
+                </a>
+                <button class="navbar-toggler d-lg-none" type="button" data-toggle="navbarToggler" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-inner">
+                    <button class="navbar-toggler d-lg-none" type="button" data-toggle="navbarToggler" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <nav>
+                        <ul class="navbar-nav" id="navbar-nav">
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="./index.html">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="./login.html">Iniciar sesión</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="./contact.html">Contacto</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+
+
+
+        <section class="section breadcrumb-area bg-overlay d-flex align-items-center" style="height: 220px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-content d-flex flex-column align-items-center text-center">
+                            <h3 class="text-white">Reserva Ecológica Antisana</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section   class="section blog-area ptb_100">
+            <div class="container" >
+                <div class="card-columns" id="card-list" ></div>
+            </div>
+        </section>
+
+        
+
+        <footer class="section inner-footer bg-gray ptb_100">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-6">
+                        <!-- Footer Items -->
+                        <div class="footer-items text-center">
+                            <!-- Logo -->
+                            <a class="navbar-brand" href="#">
+                                <img class="logo" src="assets/img/logo/logo.png" alt="">
+                            </a>
+                            <p class="mt-2 mb-3">Se toma la vía Quito – Sangolquí – Píntag. Desde el parque central de Píntag se continúa por la vía hacia el volcán Antisana (apta para todo tipo de vehículo).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/plugins.min.js"></script>
+    <script src="assets/js/active.js"></script>
+    <script>
+
+        fetch('http://reserva-ecologica-antisana.online/back/public/api/avistamientos/user-listar')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(myJson) {
+             var myVar = myJson.success.data;
+ 
+              for (var key in myVar) { 
+                var data        = myJson.success.data[key];    
+                var googlemaps  = "https://www.google.com/maps/search/?api=1&query="+data.lat+","+data.lng;
+                var html  = '<div class="card p-3">'
+                                +'<img  src="http://reserva-ecologica-antisana.online/back/public/imagenes/'+data.url_imagen+'" alt="Imagen" class="card-img-top">'
+                                +'<blockquote class="blockquote mb-0 card-body">'
+                                    +'<h5>'+data.titulo+'</h5>'
+                                    +'<p>'+data.descripcion+'</p>'
+                                    +'<footer class="blockquote-footer">'
+                                        +'<small class="text-muted">'
+                                            +''+data.username +' | <cite title="Source Title">'+data.created_at+' <a href="'+googlemaps+'" target="_blank" class="blog-btn mt-3"><span class="flaticon-place"></span></a> </cite>'
+                                        +'</small>'
+                                    +'</footer>'
+                                +'</blockquote>'
+                            +'</div>';
+                            $("#card-list").append(html)
+                        }                
+            });
+        </script>
+</body>
+</html>
